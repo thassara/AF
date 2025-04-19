@@ -5,7 +5,7 @@ import { useAllcontryQuery, useLazyFliterbynameQuery,  useLazyFliterbylanguageQu
 import { SearchFun } from "./SearchFun";
 import { useSelector } from 'react-redux';
 import { useCountryController } from "../controller/APIcrtl";
-
+import { useNavigate } from "react-router-dom";
 
 type Allcontry = {
   common: string;
@@ -22,7 +22,7 @@ const AllCountrys: React.FC = () => {
   const [useflitername, searchresult] = useLazyFliterbynameQuery();
   const [usefliterlanguage, searchresultlanguage] = useLazyFliterbylanguageQuery();
   const [usefliterregion, searchresultregion] = useLazyFliterbyregionQuery();
-
+  const navigate = useNavigate();
   const inputData = useSelector((state: any) => state.inputs.inputData );
  
 const searchData = inputData.searchdata;
@@ -61,7 +61,13 @@ useEffect(() => {
       setAllcontrysdata(formatted);
     }
   }, [alls]);
-
+  
+  const handleRowClick = (row: Allcontry) => {
+    navigate(`/dashboard/contry`, {
+      state: { countryName: row.common }
+    });
+  };
+  
   
 
   
@@ -114,7 +120,7 @@ useEffect(() => {
         <SearchFun />
       </div>
       <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-md overflow-x-auto">
-        <DataTable columns={columns} data={Allcontrysdata} showPagination={true} />
+        <DataTable columns={columns} data={Allcontrysdata} showPagination={true} onRowClick={handleRowClick}/>
       </div>
   
     </div>

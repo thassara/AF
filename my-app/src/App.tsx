@@ -3,7 +3,7 @@ import './App.css'
 import { Routes, Route } from "react-router-dom";
 import AllCountrys from './component/AllcountryTable';
 import { RouteEnum } from './enum/RouteEnum';
-import Cn from './component/test';
+import CountryDashboard from './component/CountryDashboard';
 
 function App() {
  
@@ -12,7 +12,8 @@ function App() {
     <>
     <Routes>
     <Route path={RouteEnum.AllCountrys} element={<AllCountrys />} />
-    <Route path={RouteEnum.Test} element={<Cn />} />
+    <Route path={RouteEnum.Contry} element={<CountryDashboard />} />
+   
     </Routes>
     </>
   )

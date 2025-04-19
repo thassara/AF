@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import {
   ColumnDef,
@@ -36,7 +35,8 @@ interface DataTableProps<TData, TValue> {
   showPagination?: boolean;
   showFiltering?: boolean;
   filters?: string[];
-  filterNames?: string[]; // Change filterNames to an array
+  filterNames?: string[];
+  onRowClick?: (row: TData) => void; // <-- Added
 }
 
 export function DataTable<TData, TValue>({
@@ -45,6 +45,7 @@ export function DataTable<TData, TValue>({
   showPagination,
   showFiltering,
   filterNames = [],
+  onRowClick, // <-- Added
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -112,7 +113,6 @@ export function DataTable<TData, TValue>({
     state: { sorting, columnFilters, columnVisibility, rowSelection },
   });
 
-  // Generate filters dynamically
   const filters = filterNames.map((name) => ({
     key: name,
     show: !!showFilters[name],
@@ -187,6 +187,8 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className="cursor-pointer hover:bg-muted"
+                  onClick={() => onRowClick?.(row.original)} // Row click here
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
