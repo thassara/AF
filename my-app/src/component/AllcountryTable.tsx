@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { DataTable } from "../components/data-table/DataTable";
 import { createDynamicColumns } from "../components/data-table/Columns";
-import { useAllcontryQuery } from "../features/API";
+import { useAllcontryQuery, useLazyFliterbynameQuery,  useLazyFliterbylanguageQuery,useLazyFliterbyregionQuery, } from "../features/API";
+import { SearchFun } from "./SearchFun";
+import { useSelector } from 'react-redux';
+import { useCountryController } from "../controller/APIcrtl";
+
 
 type Allcontry = {
   common: string;
@@ -15,6 +19,34 @@ type Allcontry = {
 const AllCountrys: React.FC = () => {
   const [Allcontrysdata, setAllcontrysdata] = useState<Allcontry[]>([]);
   const { data: alls } = useAllcontryQuery({ skip: false });
+  const [useflitername, searchresult] = useLazyFliterbynameQuery();
+  const [usefliterlanguage, searchresultlanguage] = useLazyFliterbylanguageQuery();
+  const [usefliterregion, searchresultregion] = useLazyFliterbyregionQuery();
+
+  const inputData = useSelector((state: any) => state.inputs.inputData );
+ 
+const searchData = inputData.searchdata;
+const filterData = inputData.fliter;
+
+console.log("searchData", searchData);
+console.log("filterData", filterData);
+
+useCountryController(searchData, filterData, setAllcontrysdata);
+
+useEffect(() => {
+  if (searchresult.data && Array.isArray(searchresult.data)) {
+    const formatted = searchresult.data.map((country: any) => ({
+      common: country.name?.common || "N/A",
+      Population: country.population || 0,
+      region: country.region || "N/A",
+      languages: country.languages ? Object.values(country.languages).join(", ") : "N/A",
+      flags: country.flags?.png || "",
+      Capital: country.capital?.[0] || "N/A",
+    }));
+    setAllcontrysdata(formatted);
+  }
+}, [searchresult.data]);
+
 
   useEffect(() => {
     if (alls && Array.isArray(alls)) {
@@ -30,6 +62,9 @@ const AllCountrys: React.FC = () => {
     }
   }, [alls]);
 
+  
+
+  
   const columns = createDynamicColumns<Allcontry>(
     ["common", "Population", "region", "languages", "flags", "Capital"],
     {
@@ -69,18 +104,23 @@ const AllCountrys: React.FC = () => {
   );
 
   return (
-    <div className="flex flex-col space-y-4 p-4 sm:p-6 lg:p-6">
-          <div>
-        <div className="text-3xl text-center font-bold p-4 rounded-xl">
-        All Contrys
-        </div>
+    <div className="flex flex-col gap-6 p-4 sm:p-6 lg:p-8">
+         <div>
+        <h2 className="text-2xl sm:text-3xl font-bold text-center tracking-widest text-gray-800 bg-blue-100 p-4 rounded-xl shadow-sm">
+          A L L &nbsp; C O U N T R I E S
+        </h2>
       </div>
-
-         <div className="p-4 border rounded-lg shadow-md overflow-auto">
-      <DataTable columns={columns} data={Allcontrysdata} showPagination={true} />
+      <div>
+        <SearchFun />
       </div>
+      <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-md overflow-x-auto">
+        <DataTable columns={columns} data={Allcontrysdata} showPagination={true} />
+      </div>
+  
     </div>
   );
+  
+  
 };
 
 export default AllCountrys;

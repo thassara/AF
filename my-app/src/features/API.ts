@@ -8,9 +8,25 @@ export const AllAPIs = createApi({
     Allcontry: builder.query({
         query: () => `v3.1/all`,
       }),
+      fliterbyname: builder.query({
+        query: (name) => `v3.1/name/${name}`,
+      }),
+      fliterbyregion: builder.query({
+        query: (region) => `v3.1/region/${region}`,
+      }),
+      fliterbylanguage : builder.query({
+        query: (language) => `v3.1/lang/${language}`,
+      }),
+      Allcontrysec: builder.query({
+        query: () => `v3.1/all`,
+      }),
   }),
 });
 export const {
     useAllcontryQuery,
+    useLazyFliterbynameQuery,
+    useLazyFliterbylanguageQuery,
+    useLazyFliterbyregionQuery,
+    useLazyAllcontrysecQuery,
   endpoints,
 } = AllAPIs;
