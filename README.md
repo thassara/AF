@@ -1,4 +1,4 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/mNaxAqQD)
+
 # Country Information App
 
 ## Description
@@ -22,7 +22,72 @@ This application allows users to search for countries by name and filter countri
 ### 1. Clone the repository:
 ```bash
 git clone https://github.com/SE1020-IT2070-OOP-DSA-25/af-2-thassara.git
+```
 
-## Hosting Link
-(https://af-pi.vercel.app/allcountry)
+### 2. Navigate to the project folder:
+```bash
+cd af-2-thassara
+```
 
+### 3. Install the dependencies:
+```bash
+npm install
+```
+
+### 4. Run the project locally:
+```bash
+npm start
+```
+This will start the development server, and you can view the application at [http://localhost:3000](http://localhost:3000).
+
+## Build Process
+
+To build the application for production:
+
+1. Run the following command:
+   ```bash
+   npm run build
+   ```
+2. This will create an optimized build of your app in the `build` directory. You can deploy this folder to any web server.
+
+## Usage
+
+The application provides the following features:
+- **Search by country name**: Type the name of a country in the search bar to find matching countries.
+- **Filter by region**: Select a region to filter countries by that region.
+- **Filter by language**: Choose a language to filter countries where that language is spoken.
+
+## Hosting URL
+
+You can access the live version of the application at: [https://af-pi.vercel.app/allcountry](https://af-pi.vercel.app/allcountry)
+
+## Challenges Faced and Solutions
+
+### 1. Handling API Response and Caching
+- **Challenge**: Managing API responses effectively, especially when handling large datasets of countries.
+  - **Solution**: Using Redux Toolkit's RTK Query to handle caching and fetching, which improves performance and reduces unnecessary API calls.
+
+### 2. Responsive Design
+- **Challenge**: Making the UI responsive across different devices.
+  - **Solution**: Tailwind CSS was used to ensure the design adapts well to various screen sizes and devices.
+
+## Tests
+
+To run tests in the project, use:
+```bash
+npm test
+```
+
+## Contribution
+
+If you want to contribute, follow these steps:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-name`).
+3. Commit your changes (`git commit -am 'Add new feature'`).
+4. Push to the branch (`git push origin feature-name`).
+5. Create a new pull request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
