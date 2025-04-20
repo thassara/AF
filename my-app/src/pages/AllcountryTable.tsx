@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { DataTable } from "../components/data-table/DataTable";
 import { createDynamicColumns } from "../components/data-table/Columns";
 import { useAllcontryQuery, useLazyFliterbynameQuery,  useLazyFliterbylanguageQuery,useLazyFliterbyregionQuery, } from "../features/API";
-import { SearchFun } from "./SearchFun";
+import { SearchFun } from "../components/SearchFun";
 import { useSelector } from 'react-redux';
 import { useCountryController } from "../controller/APIcrtl";
 import { useNavigate } from "react-router-dom";
@@ -63,7 +63,7 @@ useEffect(() => {
   }, [alls]);
   
   const handleRowClick = (row: Allcontry) => {
-    navigate(`/dashboard/contry`, {
+    navigate(`/country`, {
       state: { countryName: row.common }
     });
   };

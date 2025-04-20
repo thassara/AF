@@ -13,9 +13,9 @@ import {
 } from 'lucide-react';
 
 import { useLazyFliterbynameQuery } from '../features/API';
-import { CountryHeader } from './CountryHeader';
-import { InfoCard } from './InfoCard';
-import { CountryMap } from './CountryMap';
+import { CountryHeader } from '../components/CountryHeader';
+import { InfoCard } from '../components/InfoCard';
+import { CountryMap } from '../components/CountryMap';
 
 const CountryDashboard: React.FC = () => {
   const [getByName, nameResult] = useLazyFliterbynameQuery();

@@ -1,4 +1,5 @@
 export enum RouteEnum {
-    AllCountrys = "/dashboard/allCountrys",
-    Contry = "/dashboard/contry",
-}
+    AllCountrys = "/allcountry",
+    Contry = "/country",
+  }
+  
