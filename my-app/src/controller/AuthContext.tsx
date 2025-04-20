@@ -1,7 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
+interface User {
+  username: string;
+  // add more properties if needed (e.g., email, role)
+}
+
 interface AuthContextType {
-  user: string | null;
+  user: User | null;
   isLoggedIn: boolean;
   login: (username: string, password: string) => Promise<boolean>;
   logout: () => void;
@@ -29,7 +34,7 @@ const fetchCredentials = async (): Promise<Record<string, string>> => {
 };
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<string | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -38,7 +43,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (storedUser && expiresAt) {
       const isExpired = new Date().getTime() > parseInt(expiresAt);
       if (!isExpired) {
-        setUser(storedUser);
+        try {
+          const parsedUser: User = JSON.parse(storedUser);
+          setUser(parsedUser);
+        } catch (e) {
+          console.error("Failed to parse stored user:", e);
+          handleLogout();
+        }
       } else {
         handleLogout(); // session expired
       }
@@ -49,9 +60,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const credentials = await fetchCredentials();
     if (credentials[username] === password) {
       const expiresAt = new Date().getTime() + SESSION_TIMEOUT;
-      localStorage.setItem("user", username);
+      const userData: User = { username };
+
+      localStorage.setItem("user", JSON.stringify(userData));
       localStorage.setItem("expiresAt", expiresAt.toString());
-      setUser(username);
+
+      setUser(userData);
       return true;
     } else {
       return false;

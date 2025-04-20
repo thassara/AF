@@ -19,9 +19,9 @@ type Allcontry = {
 const AllCountrys: React.FC = () => {
   const [Allcontrysdata, setAllcontrysdata] = useState<Allcontry[]>([]);
   const { data: alls } = useAllcontryQuery({ skip: false });
-  const [useflitername, searchresult] = useLazyFliterbynameQuery();
-  const [usefliterlanguage, searchresultlanguage] = useLazyFliterbylanguageQuery();
-  const [usefliterregion, searchresultregion] = useLazyFliterbyregionQuery();
+  const [, searchresult] = useLazyFliterbynameQuery();
+  const [] = useLazyFliterbylanguageQuery();
+  const [] = useLazyFliterbyregionQuery();
   const navigate = useNavigate();
   const inputData = useSelector((state: any) => state.inputs.inputData );
  

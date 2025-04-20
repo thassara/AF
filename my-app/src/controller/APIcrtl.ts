@@ -8,14 +8,14 @@ interface CountryData {
   flags: string;
   Capital: string;
 }
-import { useAllcontryQuery, useLazyFliterbynameQuery, useLazyFliterbylanguageQuery, useLazyFliterbyregionQuery,useLazyAllcontrysecQuery } from "../features/API";
+import { useAllcontryQuery, useLazyFliterbynameQuery, useLazyFliterbylanguageQuery, useLazyFliterbyregionQuery } from "../features/API";
 
 export const useCountryController = (searchData: string, filter: string, setData: (data: any) => void) => {
   const { data: allCountries } = useAllcontryQuery({ skip: false });
   const [getByName, nameResult] = useLazyFliterbynameQuery();
   const [getByRegion, regionResult] = useLazyFliterbyregionQuery();
   const [getByLanguage, languageResult] = useLazyFliterbylanguageQuery();
-  const [getall, getalldata] = useLazyFliterbylanguageQuery();
+ // const [getall, getalldata] = useLazyFliterbylanguageQuery();
 
   console.log("controller", filter);
   console.log("controller search", searchData);

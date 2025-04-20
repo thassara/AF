@@ -136,7 +136,7 @@ const CountryDashboard: React.FC = () => {
               Currency
             </h2>
             {countryData.currencies &&
-              Object.entries(countryData.currencies).map(([code, currency]) => (
+              Object.entries(countryData.currencies as Record<string, { name: string; symbol: string }>).map(([code, currency]) => (
                 <div key={code} className="space-y-2">
                   {[
                     { label: 'Code', value: code },
@@ -176,14 +176,14 @@ const CountryDashboard: React.FC = () => {
               Borders
             </h2>
             <div className="flex flex-wrap gap-2">
-              {countryData.borders.map((border) => (
+                {countryData.borders.map((border: string) => (
                 <span
                   key={border}
                   className="px-4 py-2 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-full font-medium shadow-sm"
                 >
                   {border}
                 </span>
-              ))}
+                ))}
             </div>
           </div>
         )}

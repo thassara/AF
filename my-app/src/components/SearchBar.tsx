@@ -14,8 +14,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   onSearch,
   selectedRegion,
   setSelectedRegion,
-  selectedLanguage,
-  setSelectedLanguage,
+ 
 }) => {
   const [query, setQuery] = useState('')
 

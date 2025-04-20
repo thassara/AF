@@ -1,4 +1,3 @@
-import React from 'react'
 interface CountryHeaderProps {
   name: {
     common: string
