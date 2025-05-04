@@ -21,6 +21,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   const regions = [
     { value: 'region', label: 'Region' },
     { value: 'language', label: 'Language' },
+    { value: 'code', label: 'Code' },
     { value: 'non', label: 'Non' },
   ]
 

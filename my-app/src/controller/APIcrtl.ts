@@ -8,13 +8,14 @@ interface CountryData {
   flags: string;
   Capital: string;
 }
-import { useAllcontryQuery, useLazyFliterbynameQuery, useLazyFliterbylanguageQuery, useLazyFliterbyregionQuery } from "../features/API";
+import { useAllcontryQuery, useLazyFliterbynameQuery, useLazyFliterbylanguageQuery, useLazyFliterbyregionQuery,useLazyFliterbycodeQuery } from "../features/API";
 
 export const useCountryController = (searchData: string, filter: string, setData: (data: any) => void) => {
   const { data: allCountries } = useAllcontryQuery({ skip: false });
   const [getByName, nameResult] = useLazyFliterbynameQuery();
   const [getByRegion, regionResult] = useLazyFliterbyregionQuery();
   const [getByLanguage, languageResult] = useLazyFliterbylanguageQuery();
+  const [getBycode, codeResult] = useLazyFliterbycodeQuery();
  // const [getall, getalldata] = useLazyFliterbylanguageQuery();
 
   console.log("controller", filter);
@@ -29,6 +30,9 @@ export const useCountryController = (searchData: string, filter: string, setData
         getByLanguage(searchData); 
       } else if (filter == "region") {
         getByRegion(searchData); 
+      }
+      else if (filter == "code") {
+        getBycode(searchData); 
       }
       else if (filter == "non") {
         getByName(searchData); 
@@ -90,6 +94,20 @@ export const useCountryController = (searchData: string, filter: string, setData
       setData(formatted);
     }
   }, [languageResult.data]);
+
+  useEffect(() => {
+    if (codeResult.data) {
+      const formatted = codeResult.data.map((country: any) => ({
+        common: country.name?.common || "N/A",
+        Population: country.population || 0,
+        region: country.region || "N/A",
+        languages: country.languages ? Object.values(country.languages).join(", ") : "N/A",
+        flags: country.flags?.png || "",
+        Capital: country.capital?.[0] || "N/A",
+      }));
+      setData(formatted);
+    }
+  }, [codeResult.data]);
 
   useEffect(() => {
     if (!searchData && !filter && allCountries) {

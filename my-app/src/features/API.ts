@@ -20,6 +20,9 @@ export const AllAPIs = createApi({
       Allcontrysec: builder.query({
         query: () => `v3.1/all`,
       }),
+      fliterbycode: builder.query({
+        query: (code) => `v3.1/alpha/${code}`,
+      }),
   }),
 });
 export const {
@@ -28,5 +31,6 @@ export const {
     useLazyFliterbylanguageQuery,
     useLazyFliterbyregionQuery,
     useLazyAllcontrysecQuery,
+    useLazyFliterbycodeQuery,
   endpoints,
 } = AllAPIs;
