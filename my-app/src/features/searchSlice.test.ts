@@ -5,7 +5,7 @@ describe('searchSlice', () => {
     const initialState = {
       inputData: { searchdata: null, fliter: null },
     };
-    expect(reducer(undefined, { type: undefined })).toEqual(initialState);
+    expect(reducer(undefined, { type: '' })).toEqual(initialState);
   });
 
   it('should handle setdata', () => {
